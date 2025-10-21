@@ -21,8 +21,8 @@
  *  0  => true
  *  -5 => false
  */
-function isPositive(/* number */) {
-  throw new Error('Not implemented');
+function isPositive(number) {
+  return number >= 0;
 }
 
 /**
@@ -38,8 +38,10 @@ function isPositive(/* number */) {
  *  -5, 0, 5      => 5
  *  -0.1, 0, 0.2  => 0.2
  */
-function getMaxNumber(/* a, b, c */) {
-  throw new Error('Not implemented');
+function getMaxNumber(a, b, c) {
+  const firstMax = a > b ? a : b;
+  const secondMax = firstMax > c ? firstMax : c;
+  return secondMax;
 }
 
 /**
@@ -61,8 +63,23 @@ function getMaxNumber(/* a, b, c */) {
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  * {x: 1, y: 1}, {x: 2, y: 8} => false
  */
-function canQueenCaptureKing(/* queen, king */) {
-  throw new Error('Not implemented');
+function canQueenCaptureKing(queen, king) {
+  let result = false;
+
+  if (queen.x === king.x || queen.y === king.y) {
+    result = true;
+  }
+
+  const deltaX = queen.x - king.x;
+  const deltaY = queen.y - king.y;
+  const absDeltaX = deltaX < 0 ? -deltaX : deltaX;
+  const absDeltaY = deltaY < 0 ? -deltaY : deltaY;
+
+  if (absDeltaX === absDeltaY) {
+    result = true;
+  }
+
+  return result;
 }
 
 /**
@@ -83,8 +100,18 @@ function canQueenCaptureKing(/* queen, king */) {
  *  2, 2, 5   => false
  *  3, 0, 3   => false
  */
-function isIsoscelesTriangle(/* a, b, c */) {
-  throw new Error('Not implemented');
+function isIsoscelesTriangle(a, b, c) {
+  let result = false;
+
+  if (a + b <= c || a + c <= b || b + c <= a) {
+    return false;
+  }
+
+  if (a === b || a === c || b === c) {
+    result = true;
+  }
+
+  return result;
 }
 
 /**
@@ -101,8 +128,55 @@ function isIsoscelesTriangle(/* a, b, c */) {
  *  10  => X
  *  26  => XXVI
  */
-function convertToRomanNumerals(/* num */) {
-  throw new Error('Not implemented');
+function convertToRomanNumerals(num) {
+  let result = '';
+
+  function transferDigitToRomanNumeral(digit) {
+    switch (digit) {
+      case 1:
+        result += 'I';
+        break;
+      case 2:
+        result += 'II';
+        break;
+      case 3:
+        result += 'III';
+        break;
+      case 4:
+        result += 'IV';
+        break;
+      case 5:
+        result += 'V';
+        break;
+      case 6:
+        result += 'VI';
+        break;
+      case 7:
+        result += 'VII';
+        break;
+      case 8:
+        result += 'VIII';
+        break;
+      case 9:
+        result += 'IX';
+        break;
+      default:
+        break;
+    }
+  }
+
+  const rest = num % 10;
+  const intPart = (num - rest) / 10;
+
+  if (num >= 10) {
+    for (let i = 0; i < intPart; i += 1) {
+      result += 'X';
+    }
+  }
+
+  transferDigitToRomanNumeral(rest);
+
+  return result;
 }
 
 /**
@@ -120,8 +194,64 @@ function convertToRomanNumerals(/* num */) {
  *  '10,5'    => 'one zero point five'
  *  '1950.2'  => 'one nine five zero point two'
  */
-function convertNumberToString(/* numberStr */) {
-  throw new Error('Not implemented');
+function convertNumberToString(numberStr) {
+  let result = '';
+
+  function transferDigitToWord(digit) {
+    if (result.length > 0) {
+      result += ' ';
+    }
+
+    switch (digit) {
+      case '1':
+        result += 'one';
+        break;
+      case '2':
+        result += 'two';
+        break;
+      case '3':
+        result += 'three';
+        break;
+      case '4':
+        result += 'four';
+        break;
+      case '5':
+        result += 'five';
+        break;
+      case '6':
+        result += 'six';
+        break;
+      case '7':
+        result += 'seven';
+        break;
+      case '8':
+        result += 'eight';
+        break;
+      case '9':
+        result += 'nine';
+        break;
+      case '0':
+        result += 'zero';
+        break;
+      case ',':
+        result += 'point';
+        break;
+      case '.':
+        result += 'point';
+        break;
+      case '-':
+        result += 'minus';
+        break;
+      default:
+        break;
+    }
+  }
+
+  for (let i = 0; i < numberStr.length; i += 1) {
+    transferDigitToWord(numberStr[i]);
+  }
+
+  return result;
 }
 
 /**
@@ -136,8 +266,20 @@ function convertNumberToString(/* numberStr */) {
  *  '0123210'   => true
  *  'qweqwe'    => false
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const checkLength =
+    str.length % 2 === 0 ? str.length / 2 : Math.floor(str.length / 2);
+
+  let result = true;
+
+  for (let i = 0; i < checkLength; i += 1) {
+    if (str[i] !== str[str.length - 1 - i]) {
+      result = false;
+      break;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -154,8 +296,17 @@ function isPalindrome(/* str */) {
  *  'qwerty', 'Q'     => -1
  *  'qwerty', 'p'     => -1
  */
-function getIndexOf(/* str, letter */) {
-  throw new Error('Not implemented');
+function getIndexOf(str, letter) {
+  let index = -1;
+
+  for (let i = 0; i < str.length; i += 1) {
+    if (str[i] === letter) {
+      index = i;
+      break;
+    }
+  }
+
+  return index;
 }
 
 /**
@@ -173,8 +324,19 @@ function getIndexOf(/* str, letter */) {
  *  12345, 0    => false
  *  12345, 6    => false
  */
-function isContainNumber(/* num, digit */) {
-  throw new Error('Not implemented');
+function isContainNumber(num, digit) {
+  let result = false;
+
+  const numStr = `${num}`;
+
+  for (let i = 0; i < numStr.length; i += 1) {
+    if (numStr[i] === `${digit}`) {
+      result = true;
+      break;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -190,8 +352,43 @@ function isContainNumber(/* num, digit */) {
  *  [2, 3, 9, 5] => 2       => 2 + 3 === 5 then balance element is 9 and its index = 2
  *  [1, 2, 3, 4, 5] => -1   => no balance element
  */
-function getBalanceIndex(/* arr */) {
-  throw new Error('Not implemented');
+function getBalanceIndex(arr) {
+  if (arr.length <= 2) {
+    return -1;
+  }
+
+  function getSumOfElementsToTheLeft(arr1, index) {
+    let sum = 0;
+
+    for (let i = 0; i < index; i += 1) {
+      sum += arr1[i];
+    }
+
+    return sum;
+  }
+
+  function getSumOfElementsToTheRight(arr2, index) {
+    let sum = 0;
+
+    for (let i = index + 1; i < arr2.length; i += 1) {
+      sum += arr2[i];
+    }
+
+    return sum;
+  }
+
+  let result = -1;
+
+  for (let i = 1; i < arr.length - 1; i += 1) {
+    if (
+      getSumOfElementsToTheLeft(arr, i) === getSumOfElementsToTheRight(arr, i)
+    ) {
+      result = i;
+      break;
+    }
+  }
+
+  return result;
 }
 
 /**
@@ -215,8 +412,76 @@ function getBalanceIndex(/* arr */) {
  *          [10, 9,  8,  7]
  *        ]
  */
-function getSpiralMatrix(/* size */) {
-  throw new Error('Not implemented');
+function getSpiralMatrix(size) {
+  const spiralMatrix = [];
+
+  for (let i = 0; i < size; i += 1) {
+    for (let j = 0; j < size; j += 1) {
+      spiralMatrix[i] = new Array(size);
+    }
+  }
+
+  const processesCount = size % 2 === 0 ? size / 2 : size / 2 + 0.5;
+  let itemToFill = 1;
+
+  function fillFromLeftToRight(fixed, start, end) {
+    for (let i = start; i <= end; i += 1) {
+      spiralMatrix[fixed][i] = itemToFill;
+      itemToFill += 1;
+    }
+  }
+
+  function fillFromTopToBottom(fixed, start, end) {
+    for (let i = start; i <= end; i += 1) {
+      spiralMatrix[i][fixed] = itemToFill;
+      itemToFill += 1;
+    }
+  }
+
+  function fillFromRightToLeft(fixed, start, end) {
+    for (let i = start; i >= end; i -= 1) {
+      spiralMatrix[fixed][i] = itemToFill;
+      itemToFill += 1;
+    }
+  }
+
+  function fillFromBottomToTop(fixed, start, end) {
+    for (let i = start; i >= end; i -= 1) {
+      spiralMatrix[i][fixed] = itemToFill;
+      itemToFill += 1;
+    }
+  }
+
+  function fillMatrixLayer(processIteration) {
+    const processStartIndex = processIteration - 1;
+    const processEndIndex = size - processIteration;
+
+    fillFromLeftToRight(processStartIndex, processStartIndex, processEndIndex);
+
+    fillFromTopToBottom(
+      processEndIndex,
+      processStartIndex + 1,
+      processEndIndex
+    );
+
+    fillFromRightToLeft(
+      processEndIndex,
+      processEndIndex - 1,
+      processStartIndex
+    );
+
+    fillFromBottomToTop(
+      processStartIndex,
+      processEndIndex - 1,
+      processStartIndex + 1
+    );
+  }
+
+  for (let i = 1; i <= processesCount; i += 1) {
+    fillMatrixLayer(i);
+  }
+
+  return spiralMatrix;
 }
 
 /**
@@ -234,8 +499,155 @@ function getSpiralMatrix(/* size */) {
  *    [7, 8, 9]         [9, 6, 3]
  *  ]                 ]
  */
-function rotateMatrix(/* matrix */) {
-  throw new Error('Not implemented');
+function rotateMatrix(matrix) {
+  const rotatedMatrix = Object.assign([], matrix);
+
+  function getElementsFromLeftToRight(fixed, start, end) {
+    let index = 0;
+    const elements = [];
+
+    for (let i = start; i <= end; i += 1) {
+      elements[index] = matrix[fixed][i];
+      index += 1;
+    }
+
+    return elements;
+  }
+
+  function fillFromLeftToRight(fixed, start, end, elementsToFill) {
+    let elementToFillIndex = 0;
+
+    for (let i = start; i <= end; i += 1) {
+      rotatedMatrix[fixed][i] = elementsToFill[elementToFillIndex];
+      elementToFillIndex += 1;
+    }
+  }
+
+  function getElementsFromTopToBottom(fixed, start, end) {
+    let index = 0;
+    const elements = [];
+
+    for (let i = start; i <= end; i += 1) {
+      elements[index] = matrix[i][fixed];
+      index += 1;
+    }
+
+    return elements;
+  }
+
+  function fillFromTopToBottom(fixed, start, end, elementsToFill) {
+    let elementToFillIndex = 0;
+
+    for (let i = start; i <= end; i += 1) {
+      rotatedMatrix[i][fixed] = elementsToFill[elementToFillIndex];
+      elementToFillIndex += 1;
+    }
+  }
+
+  function getElementsFromRightToLeft(fixed, start, end) {
+    let index = 0;
+    const elements = [];
+
+    for (let i = start; i >= end; i -= 1) {
+      elements[index] = matrix[fixed][i];
+      index += 1;
+    }
+
+    return elements;
+  }
+
+  function fillFromRightToLeft(fixed, start, end, elementsToFill) {
+    let elementToFillIndex = 0;
+
+    for (let i = start; i >= end; i -= 1) {
+      rotatedMatrix[fixed][i] = elementsToFill[elementToFillIndex];
+      elementToFillIndex += 1;
+    }
+  }
+
+  function getElementsFromBottomToTop(fixed, start, end) {
+    let index = 0;
+    const elements = [];
+
+    for (let i = start; i >= end; i -= 1) {
+      elements[index] = matrix[i][fixed];
+      index += 1;
+    }
+
+    return elements;
+  }
+
+  function fillFromBottomToTop(fixed, start, end, elementsToFill) {
+    let elementToFillIndex = 0;
+
+    for (let i = start; i >= end; i -= 1) {
+      rotatedMatrix[i][fixed] = elementsToFill[elementToFillIndex];
+      elementToFillIndex += 1;
+    }
+  }
+
+  const size = matrix.length;
+  const processesCount = size % 2 === 0 ? size / 2 : size / 2 + 0.5;
+
+  function rotateMatrixLayer(processIteration) {
+    const processStartIndex = processIteration - 1;
+    const processEndIndex = size - processIteration;
+
+    const topSideElements = getElementsFromLeftToRight(
+      processStartIndex,
+      processStartIndex,
+      processEndIndex
+    );
+    const rightSideElements = getElementsFromTopToBottom(
+      processEndIndex,
+      processStartIndex + 1,
+      processEndIndex
+    );
+    const bottomSideElements = getElementsFromRightToLeft(
+      processEndIndex,
+      processEndIndex - 1,
+      processStartIndex
+    );
+    const leftSideElements = getElementsFromBottomToTop(
+      processStartIndex,
+      processEndIndex - 1,
+      processStartIndex + 1
+    );
+
+    fillFromTopToBottom(
+      processEndIndex,
+      processStartIndex,
+      processEndIndex,
+      topSideElements
+    );
+
+    fillFromRightToLeft(
+      processEndIndex,
+      processEndIndex - 1,
+      processStartIndex,
+      rightSideElements
+    );
+
+    fillFromBottomToTop(
+      processStartIndex,
+      processEndIndex - 1,
+      processStartIndex,
+      bottomSideElements
+    );
+
+    fillFromLeftToRight(
+      processStartIndex,
+      processStartIndex + 1,
+      processEndIndex - 1,
+      leftSideElements
+    );
+  }
+
+  for (let i = 1; i <= processesCount; i += 1) {
+    rotateMatrixLayer(i);
+  }
+
+  return rotatedMatrix;
 }
 
 /**
@@ -252,8 +664,65 @@ function rotateMatrix(/* matrix */) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(/* arr */) {
-  throw new Error('Not implemented');
+function sortByAsc(arr) {
+  function sift(array, start, end) {
+    const arrayToSift = array;
+
+    let root = start;
+
+    while (true) {
+      const leftChildIndex = 2 * root + 1;
+
+      if (leftChildIndex >= end) {
+        break;
+      }
+
+      const rightChildIndex = leftChildIndex + 1;
+      let itemToSwapIndex = leftChildIndex;
+
+      if (
+        rightChildIndex < end &&
+        arrayToSift[rightChildIndex] > arrayToSift[leftChildIndex]
+      ) {
+        itemToSwapIndex = rightChildIndex;
+      }
+
+      if (arrayToSift[root] > arrayToSift[itemToSwapIndex]) {
+        break;
+      }
+
+      const tempItemStorage = arrayToSift[root];
+      arrayToSift[root] = arrayToSift[itemToSwapIndex];
+      arrayToSift[itemToSwapIndex] = tempItemStorage;
+
+      root = itemToSwapIndex;
+    }
+  }
+
+  function heapSort(array) {
+    const arrayToSort = array;
+    const arrLength = arr.length;
+
+    if (arrLength < 2) {
+      return arr;
+    }
+
+    for (let i = Math.floor(arrLength / 2) - 1; i >= 0; i -= 1) {
+      sift(arr, i, arrLength);
+    }
+
+    for (let endIndex = arrLength - 1; endIndex > 0; endIndex -= 1) {
+      const tempItemStorage = arrayToSort[0];
+      arrayToSort[0] = arrayToSort[endIndex];
+      arrayToSort[endIndex] = tempItemStorage;
+
+      sift(arrayToSort, 0, endIndex);
+    }
+
+    return arrayToSort;
+  }
+
+  return heapSort(arr);
 }
 
 /**
