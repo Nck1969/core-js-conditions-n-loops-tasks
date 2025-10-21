@@ -664,65 +664,66 @@ function rotateMatrix(matrix) {
  *  [2, 9, 5, 9]    => [2, 5, 9, 9]
  *  [-2, 9, 5, -3]  => [-3, -2, 5, 9]
  */
-function sortByAsc(arr) {
-  function sift(array, start, end) {
-    const arrayToSift = array;
-
-    let root = start;
-
-    while (true) {
-      const leftChildIndex = 2 * root + 1;
-
-      if (leftChildIndex >= end) {
-        break;
-      }
-
-      const rightChildIndex = leftChildIndex + 1;
-      let itemToSwapIndex = leftChildIndex;
-
-      if (
-        rightChildIndex < end &&
-        arrayToSift[rightChildIndex] > arrayToSift[leftChildIndex]
-      ) {
-        itemToSwapIndex = rightChildIndex;
-      }
-
-      if (arrayToSift[root] > arrayToSift[itemToSwapIndex]) {
-        break;
-      }
-
-      const tempItemStorage = arrayToSift[root];
-      arrayToSift[root] = arrayToSift[itemToSwapIndex];
-      arrayToSift[itemToSwapIndex] = tempItemStorage;
-
-      root = itemToSwapIndex;
-    }
-  }
-
-  function heapSort(array) {
-    const arrayToSort = array;
-    const arrLength = arr.length;
-
-    if (arrLength < 2) {
-      return arr;
-    }
-
-    for (let i = Math.floor(arrLength / 2) - 1; i >= 0; i -= 1) {
-      sift(arr, i, arrLength);
-    }
-
-    for (let endIndex = arrLength - 1; endIndex > 0; endIndex -= 1) {
-      const tempItemStorage = arrayToSort[0];
-      arrayToSort[0] = arrayToSort[endIndex];
-      arrayToSort[endIndex] = tempItemStorage;
-
-      sift(arrayToSort, 0, endIndex);
-    }
-
-    return arrayToSort;
-  }
-
-  return heapSort(arr);
+function sortByAsc(/* arr */) {
+  throw new Error('Not implemented');
+  // function sift(array, start, end) {
+  //   const arrayToSift = array;
+  //
+  //   let root = start;
+  //
+  //   while (true) {
+  //     const leftChildIndex = 2 * root + 1;
+  //
+  //     if (leftChildIndex >= end) {
+  //       break;
+  //     }
+  //
+  //     const rightChildIndex = leftChildIndex + 1;
+  //     let itemToSwapIndex = leftChildIndex;
+  //
+  //     if (
+  //       rightChildIndex < end &&
+  //       arrayToSift[rightChildIndex] > arrayToSift[leftChildIndex]
+  //     ) {
+  //       itemToSwapIndex = rightChildIndex;
+  //     }
+  //
+  //     if (arrayToSift[root] > arrayToSift[itemToSwapIndex]) {
+  //       break;
+  //     }
+  //
+  //     const tempItemStorage = arrayToSift[root];
+  //     arrayToSift[root] = arrayToSift[itemToSwapIndex];
+  //     arrayToSift[itemToSwapIndex] = tempItemStorage;
+  //
+  //     root = itemToSwapIndex;
+  //   }
+  // }
+  //
+  // function heapSort(array) {
+  //   const arrayToSort = array;
+  //   const arrLength = arr.length;
+  //
+  //   if (arrLength < 2) {
+  //     return arr;
+  //   }
+  //
+  //   for (let i = Math.floor(arrLength / 2) - 1; i >= 0; i -= 1) {
+  //     sift(arr, i, arrLength);
+  //   }
+  //
+  //   for (let endIndex = arrLength - 1; endIndex > 0; endIndex -= 1) {
+  //     const tempItemStorage = arrayToSort[0];
+  //     arrayToSort[0] = arrayToSort[endIndex];
+  //     arrayToSort[endIndex] = tempItemStorage;
+  //
+  //     sift(arrayToSort, 0, endIndex);
+  //   }
+  //
+  //   return arrayToSort;
+  // }
+  //
+  // return heapSort(arr);
 }
 
 /**
